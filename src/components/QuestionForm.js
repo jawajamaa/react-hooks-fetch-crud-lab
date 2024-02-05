@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function QuestionForm(props) {
+function QuestionForm({ baseUrl, onHandleSubmit }) {
   const [formData, setFormData] = useState({
     prompt: "",
     answer1: "",
@@ -20,6 +20,20 @@ function QuestionForm(props) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log(formData);
+    fetch(baseUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json",
+      },
+      // below body: works to update db.json, but browser errors as the answers are not in an array. change to {"answers": ["string", "string", "string","string"]  }??
+      body: JSON.stringify(formData, {
+        "prompt": "string",
+        "answers": "array of strings",
+        "correctIndex": "integer"
+      })
+    })
+      .then((r) => r.json())
+      .then((newQuestion) => onHandleSubmit(newQuestion))
   }
 
   return (

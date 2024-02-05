@@ -9,12 +9,17 @@ function App() {
 
   const baseUrl = "http://localhost:4000/questions";
 
+
   useEffect(() => {
     fetch(baseUrl)
       .then((r) => r.json())
       .then((questions) => setQuizQuestions(questions));
       // .then((questions) => console.log(questions));
   }, [])
+
+    function onHandleSubmit(newQuestion) {
+console.log(newQuestion)
+    }
 
   return (
     <main>
@@ -23,6 +28,8 @@ function App() {
       />
       {page === "Form" ? 
       <QuestionForm 
+      baseUrl = { baseUrl }
+      onHandleSubmit = { onHandleSubmit }
       /> : 
       <QuestionList
       quizQuestions = { quizQuestions }
