@@ -65,7 +65,17 @@
         "controlled"
       ],
       "correctIndex": 1
+    },
+    {
+      "prompt": "What do you wrap JSX in to have an implied return?",
+      "answers": [
+        "a big hug",
+        "parentheses",
+        "brackets",
+        "curly brackets"
+      ],
+      "correctIndex": "1",
+      "id": 7
     }
-
   ]
 }
