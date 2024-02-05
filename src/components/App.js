@@ -1,15 +1,33 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import AdminNavBar from "./AdminNavBar";
 import QuestionForm from "./QuestionForm";
 import QuestionList from "./QuestionList";
 
 function App() {
   const [page, setPage] = useState("List");
+  const[ quizQuestions, setQuizQuestions ] = useState([]);
+
+  const baseUrl = "http://localhost:4000/questions";
+
+  useEffect(() => {
+    fetch(baseUrl)
+      .then((r) => r.json())
+      .then((questions) => setQuizQuestions(questions));
+      // .then((questions) => console.log(questions));
+  }, [])
 
   return (
     <main>
-      <AdminNavBar onChangePage={setPage} />
-      {page === "Form" ? <QuestionForm /> : <QuestionList />}
+      <AdminNavBar 
+      onChangePage={setPage} 
+      />
+      {page === "Form" ? 
+      <QuestionForm 
+      /> : 
+      <QuestionList
+      quizQuestions = { quizQuestions }
+      setQuizQuestions = { setQuizQuestions } 
+      />}
     </main>
   );
 }
